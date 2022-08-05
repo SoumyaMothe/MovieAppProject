@@ -5,6 +5,7 @@ import {data} from './data.js';
 import  NavBar from './NavBar';
 import MovieCard from './MovieCard';
 import {addMovies} from './actions';
+import {setShowFav} from './actions';
 class App  extends React.Component
   {
     componentDidMount()
@@ -23,18 +24,21 @@ class App  extends React.Component
  isMovieFavourite=(movie)=>
  {
   const {favourite}=this.props.store.getState();
-  var val= favourite.indexOf(movie);
-  if(val==-1)
-  {
-  return false;
-  }
+  const index= favourite.indexOf(movie);
+  if(index!==-1)
   return true;
+  return false;
  }
+ handleClick=(val)=>{
+     this.props.store.dispatch(setShowFav(val));
+ }
+ 
 render()
 {
 
 
- const  {list,favourites}=this.props.store.getState();
+ const  {list,favourite,showFavourites}=this.props.store.getState();
+const  displayMovies=showFavourites?favourite:list;
   return (
     
     <div className="App">
@@ -45,7 +49,7 @@ render()
         <div className="tab" >Favourites</div>
       </div>
       <div className="list">
-        {list.map((movie,index)=>(<MovieCard movie={movie} 
+        {displayMovies.map((movie,index)=>(<MovieCard movie={movie} 
         key={`movies ${index}`}
         dispatch={this.props.store.dispatch}
         isFavourite={this.isMovieFavourite(movie)}
