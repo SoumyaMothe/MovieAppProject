@@ -4,11 +4,28 @@ import './App.css';
 import {data} from './data.js';
 import  NavBar from './NavBar';
 import MovieCard from './MovieCard';
-function App ()
+import {addMovies} from './actions';
+class App  extends React.Component
   {
+    componentDidMount()
+    {
+      const {store}=this.props;
+      store.subscribe(()=>{
+        console.log("UPDATED");
+        this.forceUpdate();
+      });
+      store.dispatch(
+       addMovies(data)
+      
+      )
+   }
    // console.log('state',props.store.movies)
  
+render()
+{
 
+
+ const  {list}=this.props.store.getState();
   return (
     
     <div className="App">
@@ -19,7 +36,7 @@ function App ()
         <div className="tab" >Favourites</div>
       </div>
       <div className="list">
-        {data.map((movie,index)=>(<MovieCard movie={movie}/> ))}
+        {list.map((movie,index)=>(<MovieCard movie={movie} key={`movies {index}`}/> ))}
        
       </div>
    
@@ -28,6 +45,7 @@ function App ()
     
   );
   }
+}
 
 
 
