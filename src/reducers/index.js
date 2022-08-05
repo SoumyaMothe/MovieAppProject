@@ -12,7 +12,7 @@ function movies(state=initialMoviesState,action)
     case 'ADD_FAVOURITE':
         return{
             ...state,
-            favourite:action.movie
+            favourite:[action.movie,...state.favourite]
 
         }
     default:
