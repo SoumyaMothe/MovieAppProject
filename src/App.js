@@ -29,8 +29,9 @@ class App  extends React.Component
   return true;
   return false;
  }
- handleClick=(val)=>{
-     this.props.store.dispatch(setShowFav(val));
+ onChangeTab=(val)=>{
+  this.props.store.dispatch(setShowFav(val))
+
  }
  
 render()
@@ -45,8 +46,8 @@ const  displayMovies=showFavourites?favourite:list;
     <NavBar/>
     <div className="main">
       <div className="tabs">
-        <div className="tab" >Movies</div>
-        <div className="tab" >Favourites</div>
+        <div className="tab" onClick={()=>this.onChangeTab(false)} >Movies</div>
+        <div className="tab"  onClick={()=>this.onChangeTab(true)} >Favourites</div>
       </div>
       <div className="list">
         {displayMovies.map((movie,index)=>(<MovieCard movie={movie} 
@@ -56,7 +57,7 @@ const  displayMovies=showFavourites?favourite:list;
         /> ))}
        
       </div>
-   
+      <div >{displayMovies.length===0?<h>Display is null</h>:null}</div>
     </div>
     </div>
     
