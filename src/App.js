@@ -27,6 +27,8 @@ class App  extends React.Component
   const index= favourite.indexOf(movie);
   if(index!==-1)
   return true;
+  if(index==0)
+  return false;
   return false;
  }
  onChangeTab=(val)=>{
